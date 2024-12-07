@@ -270,6 +270,9 @@ $(function () {
 // Máscara para CNPJ e valores em reais
 
 $(document).ready(function () {
+  $(".mascara-cpf").mask("000.000.000-00", {
+    reverse: true,
+  });
   $(".mascara-cnpj").mask("00.000.000/0000-00", {
     reverse: true,
   });

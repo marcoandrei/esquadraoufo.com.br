@@ -18,10 +18,6 @@
     <!-- Ícones -->
     <link rel="stylesheet" href="fonts/font-awesome-v5/css/fontawesome-all.css">
 
-    <!-- Scripts -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/jquery.mask.min.js"></script>
-    <script src="js/funcoes.js"></script>
 
 </head>
 
@@ -129,7 +125,7 @@
                 <div class="uma-linha">
                     <div class="meia-linha">
                         <label>CPF
-                            <input required type="text"></label>
+                            <input required type="text" id="cpf" name="cpf" data-mask="000.000.000-00"></label>
                     </div>
                     <div class="meia-linha"><label>RG
                             <input required type="text"></label></div>
@@ -161,7 +157,7 @@
                 <label>E-mail
                     <input required type="email" id="email" name="email"></label>
                 <label>Telefone Celular
-                    <input required type="tel" id="celular" name="celular"></label>
+                    <input required type="tel" id="celular" name="celular" data-mask="(00) 0 0000-0000"></label>
 
 
                 <fieldset>
@@ -249,6 +245,8 @@
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
     <script id="via-cep-js" type="text/javascript" src="js/vc-ws.js"></script>
+    <script src="js/jquery.mask.min.js"></script>
+    <script src="js/funcoes.js"></script>
 
 </body>
 
