@@ -116,12 +116,31 @@ form {
 
 input[type="text"] {
     width: 100%;
+
 }
+
+input[type="text"],
+input[type="date"],
+input[type="radio"] {}
 
 .uma-linha {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+}
+
+.uma-linha>* {
+    margin-bottom: 0.5rem;
+}
+
+.um-terco {
+    width: 100%;
+}
+
+@media screen and (min-width: 600px) {
+    .um-terco {
+        width: 32%;
+    }
 }
 
 .meia-linha {
@@ -133,6 +152,16 @@ input[type="text"] {
         width: 48%;
     }
 }
+
+/* Mensagens de erro */
+
+.msgerro {
+    color: orangered;
+    font-weight: 500;
+    margin: 24px auto 0;
+}
+
+
 
 /* Rodapé */
 

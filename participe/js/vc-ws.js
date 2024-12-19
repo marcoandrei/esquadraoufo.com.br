@@ -43,16 +43,21 @@ $(document).ready(function() {
                         $("#ibge").val(dados.ibge);
                     } //end if.
                     else {
-                        //CEP pesquisado não foi encontrado.
+                        // CEP pesquisado não foi encontrado.
                         limpa_formulário_cep();
-                        alert("CEP não encontrado.");
+                        document.getElementById("cepmsg").innerHTML = "CEP não encontrado";
+                        document.getElementById("cep").style.border = "solid 1px orangered"
+                        document.getElementById("cep").value = "";
+                                            
                     }
                 });
             } //end if.
             else {
                 //cep é inválido.
                 limpa_formulário_cep();
-                alert("Formato de CEP inválido.");
+                        document.getElementById("cepmsg").innerHTML = "Formato de CEP inválido";
+                        document.getElementById("cep").style.border = "solid 1px orangered"
+                        document.getElementById("cep").value = "";
             }
         } //end if.
         else {

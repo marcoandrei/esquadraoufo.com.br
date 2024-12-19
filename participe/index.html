@@ -94,17 +94,48 @@
 
     <form id="enviaObra" method="post" action="grava-obra.php" enctype="multipart/form-data">
 
+        <input type="hidden" id="gravaObra" name="gravaObra">
+
         <section id="inscricao">
             <div class="conteudo">
                 <h2>Ficha de Inscrição</h2>
 
                 <h3>Dados Pessoais</h3>
+
+                <div class="uma-linha">
+                    <div class="um-terco">
+                        <label>CPF
+                            <input required type="text" id="cpf" name="cpf" title="Digite seu CPF"
+                                data-mask="000.000.000-00" onblur="validaCPF(this);"></label>
+                    </div>
+                    <div class="um-terco">
+                        <p id="cpfmsg" class="msgerro"></p>
+                    </div>
+                    <div class="um-terco">
+
+                    </div>
+                </div>
+
                 <label>Nome do Cedente<br>
                     <input required type="text">
                 </label>
-                <label>Nacionalidade<br>
-                    <input required type="text">
-                </label>
+
+                <div class="uma-linha">
+                    <div class="um-terco">
+                        <label>Nacionalidade
+                            <input required type="text">
+                        </label>
+                    </div>
+                    <div class="um-terco">
+                        <label>Profissão<input required type="text"></label>
+                    </div>
+                    <div class="um-terco">
+                        <label>RG
+                            <input required type="text">
+                        </label>
+                    </div>
+                </div>
+
                 <div class="uma-linha">Estado Civil:
                     <div class="input-label"><label for="solteiro"><input type="radio" id="solteiro" name="estado-civil"
                                 value="S" checked>
@@ -120,27 +151,33 @@
                     <div class="input-label"><label for="viuvo"><input type="radio" id="viuvo" name="estado-civil"
                                 value="V"> Viúvo(a)</label></div>
                 </div>
-                <label>Profissão
-                    <input required type="text"></label>
-                <div class="uma-linha">
-                    <div class="meia-linha">
-                        <label>CPF
-                            <input required type="text" id="cpf" name="cpf" data-mask="000.000.000-00"></label>
-                    </div>
-                    <div class="meia-linha"><label>RG
-                            <input required type="text"></label></div>
-                </div>
-                <div>Sexo:
-                    <input type="radio" id="feminino" name="sexo" value="F" checked>
-                    <label for="feminino">Feminino</label>
-                    <input type="radio" id="masculino" name="sexo" value="M">
-                    <label for="masculino">Masculino</label>
-                </div>
-                <label>Data de Nascimento
-                    <input required type="date"></label>
 
-                <label>CEP
-                    <input required id="cep" name="cep" type="text"></label>
+                <div class="uma-linha">
+                    <div class="meia-linha">Sexo:
+                        <input type="radio" id="feminino" name="sexo" value="F" checked>
+                        <label for="feminino">Feminino</label>
+                        <input type="radio" id="masculino" name="sexo" value="M">
+                        <label for="masculino">Masculino</label>
+                    </div>
+                    <div class="meia-linha">
+                        <label>Data de Nascimento
+                            <input required type="date"></label>
+                    </div>
+
+                </div>
+
+                <div class="uma-linha">
+                    <div class="um-terco">
+                        <label>CEP
+                            <input required id="cep" name="cep" type="text" data-mask="00000-000">
+                        </label>
+                    </div>
+                    <div class="um-terco">
+                        <p id="cepmsg" class="msgerro"></p>
+                    </div>
+                    <div class="um-terco"></div>
+                </div>
+
                 <label>Rua</label>
                 <input required id="rua" name="rua" type="text">
                 <label>Bairro</label>
@@ -219,6 +256,8 @@
                     <label>Fotos (reúna todas as fotos em um arquivo .ZIP)</label>
                     <input required type="file">
                 </fieldset>
+
+
 
                 <input id="submit" name="submit" type="submit" value="Enviar">
 
