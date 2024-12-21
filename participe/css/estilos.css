@@ -28,7 +28,11 @@ img {
     max-width: 100%;
 }
 
-button {
+a {
+    color: white;
+}
+
+.btn {
     padding: 12px 16px;
     border: 1px white solid;
     border-radius: 12px;
@@ -38,7 +42,7 @@ button {
     text-transform: uppercase;
 }
 
-button:hover {
+.btn:hover {
     background-color: white;
     color: var(--preto);
 }
@@ -189,4 +193,49 @@ input[type="radio"] {}
 
 #inicio .conteudo {
     text-align: center;
+}
+
+
+/* TERMOS DE USO
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.regulamento-janela {
+    border: 1px solid white;
+    border-radius: 16px;
+    height: 30vh;
+    overflow: scroll;
+    margin: 3em auto;
+    padding: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.regulamento-miolo {
+    overflow: auto;
+    max-height: 100%;
+}
+
+.form-aceite .caixa-aceite {
+    margin: 1em;
+}
+
+.form-aceite .botao {
+    font-weight: 700;
+    padding: 8px 16px 4px;
+}
+
+.regulamento-estilo-titulo {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.regulamento-estilo-subtitulo {
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 24px;
+}
+
+.regulamento-estilo-normal code {
+    color: var(--azul-claro);
 }
