@@ -265,10 +265,10 @@
 
         </section>
 
-        <section>
+        <section id="termos">
             <div class="conteudo">
 
-                <h2>Termo de cessão de direitos autoriais</h2>
+                <h2>Termo de cessão de direitos autorais</h2>
 
                 <p>Para enviar sua colaboração, você precisa estar de acordo com os termos de cessão de direitos autoriais ao canal History. Leia com atenção o termo e clique no aceite ao final.</p>
 

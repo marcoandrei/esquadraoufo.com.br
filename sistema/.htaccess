@@ -1,2 +1,8 @@
 # Evita listagem da pasta programas
 Options -Indexes
+
+# Evita acesso direto aos textos dos programas
+#RewriteEngine on 
+#RewriteCond %{HTTP_REFERER} !^http://(www\.)?esquadraoufo.com.br [NC] 
+#RewriteCond %{HTTP_REFERER} !^http://(www\.)?esquadraoufo.com.br.*$ [NC] 
+#RewriteRule \.(xhtml|pdf)$ - [F]
