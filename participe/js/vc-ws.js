@@ -41,6 +41,9 @@ $(document).ready(function() {
                         $("#cidade").val(dados.localidade);
                         $("#uf").val(dados.uf);
                         $("#ibge").val(dados.ibge);
+                        document.getElementById("cepmsg").innerHTML = "";
+                        document.getElementById("cep").style.border = "solid 1px green"
+                        
                     } //end if.
                     else {
                         // CEP pesquisado não foi encontrado.

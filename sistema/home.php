@@ -25,7 +25,7 @@ require_once('header.php');
             <?php
 
             // Variáveis
-            
+
             $em_aberto = 0;
             $atendidas = 0;
             $fechadas = 0;
@@ -44,7 +44,9 @@ require_once('header.php');
                     <th>Obra</th>
                     <th>Cedente</th>
                     <th>Cidade</th>
+                    <!--
                     <th>Atendente</th>
+-->
                 </tr>
 
                 <?php
@@ -84,12 +86,12 @@ require_once('header.php');
                                 break;
                         }
 
-                        ?>
+                ?>
 
 
                         <tr>
                             <!-- ícone do item -->
-                            <td>
+                            <td><!--
                                 <?php if ($eh_admin) { ?>
                                     <a href="encerra-obra.php?id=<?= $row['obra_id'] ?>" title="<?= $status ?>">
                                     <?php } ?>
@@ -97,6 +99,7 @@ require_once('header.php');
                                     <?php if ($eh_admin) { ?>
                                     </a>
                                 <?php } ?>
+                                    -->
                             </td>
 
                             <!-- data de entrada -->
@@ -121,11 +124,11 @@ require_once('header.php');
                             <td>
                                 <?= $row['cedente_cidade'] ?>
                             </td>
-                            <!-- responsável -->
+                            <!-- responsável
                             <td>
                                 <?= $row['obra_resp'] ?>
                             </td>
-
+ -->
                             <?php
 
 
@@ -134,7 +137,7 @@ require_once('header.php');
                         </tr>
 
 
-                        <?php
+                <?php
                     } //endwhile
                 } // endif
                 ?>

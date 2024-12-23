@@ -5,18 +5,12 @@
  *
 **/
 
+// Função que apaga arquivos.
 
-function abreMenu() {
-    const nav = document.querySelector('.nav-menu');
-    nav.classList.toggle('abre');
-}
-
-function fechaMenu() {
-    const nav = document.querySelector('.nav-menu');
-    if (nav.classList.contains('abre')) {
-        nav.classList.toggle('abre');
-    }
-
+function apagarArquivo(path, file) {
+  if (confirm("Você deseja realmente apagar este arquivo?")) {
+    document.location = "apagarArquivo.php?arquivo=" + path + file;
+  }
 }
 
 // VALIDAÇÃO DE DADOS NOS FORMULÁRIOS
@@ -200,6 +194,28 @@ function apagaComprovante(id) {
   }
 }
 
+// Função que valida CNPJ
+
+function validaCNPJ(ObjCnpj) {
+  var cnpj = ObjCnpj.value;
+  var valida = new Array(6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2);
+  var dig1 = new Number();
+  var dig2 = new Number();
+
+  exp = /\.|\-|\//g;
+  cnpj = cnpj.toString().replace(exp, "");
+  var digito = new Number(eval(cnpj.charAt(12) + cnpj.charAt(13)));
+
+  for (i = 0; i < valida.length; i++) {
+    dig1 += i > 0 ? cnpj.charAt(i - 1) * valida[i] : 0;
+    dig2 += cnpj.charAt(i) * valida[i];
+  }
+  dig1 = dig1 % 11 < 2 ? 0 : 11 - (dig1 % 11);
+  dig2 = dig2 % 11 < 2 ? 0 : 11 - (dig2 % 11);
+
+  if (dig1 * 10 + dig2 != digito) alert("CNPJ inválido!");
+}
+
 // Função que faz o filtro automático sobre o resultado das buscas
 
 $(function () {
@@ -239,10 +255,43 @@ $(document).ready(function () {
   $(".mascara-inteiros").mask("0#");
 });
 
+
+
+
+// ---------------------
+// CADASTRO DE USUÁRIOS
+// ---------------------
+
 // Função que apaga usuários.
 
-function apagarArquivo(path, file) {
-  if (confirm("Você deseja realmente apagar este arquivo?")) {
-    document.location = "apagarArquivo.php?arquivo=" + path + file;
+function apagaUsuario(id) {
+  if (confirm("Você deseja realmente apagar este usuário?")) {
+    document.location = "admin-apaga-usuario.php?id=" + id;
   }
 }
+
+// ---------------------
+// CADASTRO DE AGÊNCIAS
+// ---------------------
+
+// Função que apaga agências.
+
+function apagaAgencia(id) {
+  if (confirm("Você deseja realmente apagar esta agência?")) {
+    document.location = "admin-apaga-agencia.php?id=" + id;
+  }
+}
+
+// ---------------------
+// CADASTRO DE PROJETOS
+// ---------------------
+
+// Função que apaga itens de listas
+
+function apagaItem(id) {
+  if (confirm("Você deseja realmente apagar este item?")) {
+    $("#idItem").val(id);
+    $("#formApagaItem").submit();
+  }
+}
+

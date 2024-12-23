@@ -8,6 +8,10 @@ require "../sistema/include/funcoes.php";
 
 $diretorio = "../sistema/repositorio/";
 
+$sucesso = 0;
+
+$mensagem = "<h1>ERRO!</h1><p>Houve um problema ao enviar sua colaboração. Por favor, tente novamente.</p>";
+
 if (isset($_POST["gravaObra"])) {
 
     extract($_POST, EXTR_OVERWRITE);
@@ -60,7 +64,7 @@ if (isset($_POST["gravaObra"])) {
         echo $error; // 1054 Unknown column 'foo' in 'field list'
         echo '<p class="erro">ERRO! Houve um problema durante a gravação na base de dados.<br/><br/>Por favor, entre em contato com o administrador do sistema.<br/><br/></p>';
         exit;
-    } 
+    }
 
     $cedente_id = mysqli_insert_id($bd);
 
@@ -200,11 +204,69 @@ if (isset($_POST["gravaObra"])) {
         }
     }
 
-    echo "<p>Muito obrigado por sua colaboração! Iremos analisar seu conteúdo e entraremos em contato caso ele possa ser aproveitado.</p>";
-    echo '<p><a href=".">Clique aqui para voltar para o início</a></p>';
-}
-else {
-    echo "<p>Houve um erro ao enviar sua colaboração. Por favor, tente novamente.</p>";
-    echo '<p><a href=".">Clique aqui para voltar para o início</a></p>';
+
+    $mensagem = "<h1>Muito obrigado por sua colaboração!</h1>
+    <p>Vamos analisar seu conteúdo e entraremos em contato caso ele possa ser aproveitado.</p>";
+    $sucesso = 1;
+} else {
+    header("Location: index.php");
 }
 
+?>
+
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esquadrão UFO</title>
+
+    <meta name="description"
+        content="A equipe da Clip Produtora de Cinema e Vídeo e o History Channel agradecem o seu interesse em participar de mais esta série.">
+    <meta name="author" content="Marco Andrei Kichalowsky, Arsnova Digital">
+
+    <link rel="icon" type="image/png" href="" />
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/estilos.css">
+
+    <!-- Ícones -->
+    <link rel="stylesheet" href="fonts/font-awesome-v5/css/fontawesome-all.css">
+
+</head>
+
+<body>
+
+    <section id="gravacaoObraRetorno">
+
+        <div class="conteudo">
+
+            <img src="img/esquadrao-ufo-logo.png" height="150">
+
+            <?= $mensagem ?>
+
+            <div class="btn-bar">
+                <a href="index.php"><button class="btn">Voltar ao início</button></a>
+            </div>
+        </div>
+
+
+    </section>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>PRODUÇÃO</p>
+            <div class="rodape-marcas">
+                <div id="clip"><img src="img/clip-logo.png"></div>
+                <div id="history"><img src="img/history-logo.png"></div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/funcoes.js"></script>
+
+</body>
+
+</html>

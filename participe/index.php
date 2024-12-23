@@ -17,27 +17,31 @@
     <!-- Estilos -->
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/estilos.css">
+
     <!-- Ícones -->
     <link rel="stylesheet" href="fonts/font-awesome-v5/css/fontawesome-all.css">
-
 
 </head>
 
 <body>
 
-    <header>
+    <header class="site-header">
 
         <div class="conteudo">
 
             <div class="logo"><img src="img/esquadrao-ufo-logo.png"></div>
 
-            <nav role="navigation">
+            <nav role="navigation" id="site-navigation" class="main-navigation">
+                <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false" onclick="abreMenu()">
+                    <i class="fa fa-bars" aria-hidden="true"></i>
+                </button>
 
-                <ul class="menu-principal">
-                    <li onclick="exibeAba('inicio')">Início</li>
-                    <li onclick="exibeAba('instrucoes')">Instruções</li>
-                    <li onclick="exibeAba('inscricao')">Inscrição</li>
-                    <li onclick="exibeAba('info-ufo')">Informações Ufológicas</li>
+                <ul class="menu-principal menu nav-menu">
+                    <li><a href=".">Início</a></li>
+                    <li onclick="fechaMenu()"><a href="#instrucoes">Instruções</a></li>
+                    <li onclick="fechaMenu()"><a href="#inscricao">Inscrição</a></li>
+                    <li onclick="fechaMenu()"><a href="#info-ufo">Informações Ufológicas</a></li>
+                    <li onclick="fechaMenu()"><a href="#termos">Termos</a></li>
                 </ul>
 
 
@@ -46,21 +50,30 @@
 
     </header>
 
-    <section id="inicio">
+    <section id="inicio" class="aba-conteudo">
         <div class="conteudo">
             <img src="img/amorim-piramide.jpg">
-            <p>O <strong>Canal History</strong> e a Clip Produtora estão selecionando vídeos e fotos para uma nova série
+            <p>O <span class="amarelo"><strong>Canal History</strong></span> e a <strong>Clip Produtora</strong> estão selecionando vídeos e fotos para uma nova série
                 de Ufologia chamada <strong>“Esquadrão UFO”</strong>. Nesta série, especialistas irão analisar vídeos e
                 fotos de estranhos objetos vistos nos céus e descobrir se são fenômenos naturais, ciência humana ou
                 realmente objetos voadores não identificados. Se você já viu, gravou ou fotografou algum OVNI / UFO e
-                quer fazer parte de uma nova série no <strong>Canal History</strong>, envie seu vídeo/foto que ele
+                quer fazer parte de uma nova série no <span class="amarelo"><strong>Canal History</strong></span>, envie seu vídeo/foto que ele
                 poderá ser escolhido.</p>
-            <button class="btn" onclick="exibe('instrucoes')">Saiba como enviar seu material</button>
+            <a href="#instrucoes"><button class="btn">Saiba como enviar seu material</button></a>
         </div>
-
     </section>
 
-    <section id="instrucoes">
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>PRODUÇÃO</p>
+            <div class="rodape-marcas">
+                <div id="clip"><img src="img/clip-logo.png"></div>
+                <div id="history"><img src="img/history-logo.png"></div>
+            </div>
+        </div>
+    </footer>
+
+    <section id="instrucoes" class="aba-conteudo">
         <div class="conteudo">
             <h2>Passo a Passo da Inscrição</h2>
             <p>Olá!</p>
@@ -89,7 +102,7 @@
                 <li>o vídeo ou a foto para enviar.</li>
             </ul>
             </p>
-
+            <a href="#inscricao"><button class="btn">Preencha seus dados</button></a>
         </div>
 
     </section>
@@ -98,7 +111,7 @@
 
         <input type="hidden" id="gravaObra" name="gravaObra">
 
-        <section id="inscricao">
+        <section id="inscricao" class="aba-conteudo">
             <div class="conteudo">
                 <h2>Ficha de Inscrição</h2>
 
@@ -168,6 +181,9 @@
 
                 </div>
 
+                <h4>Endereço</h4>
+                <p>(Digite o CEP para preenchimento automático.)</p>
+
                 <div class="uma-linha">
                     <div class="um-terco">
                         <label>CEP
@@ -184,88 +200,136 @@
                 <input required id="rua" name="rua" type="text">
                 <label>Bairro</label>
                 <input required id="bairro" name="bairro" type="text">
-                <label>Cidade</label>
-                <input required id="cidade" name="cidade" type="text">
-                <label>Estado</label>
-                <input required id="uf" name="uf" type="text">
+                <div class="uma-linha">
+                    <div class="meia-linha">
+                        <label>Cidade</label>
+                        <input required id="cidade" name="cidade" type="text">
+                    </div>
+                    <div class="um-quarto">
+                        <label>Estado</label>
+                        <input required id="uf" name="uf" type="text">
+                    </div>
+                    <input id="ibge" name="ibge" type="hidden">
+                    <div class="um-quarto">
+                        <label>País <input required type="text" value="Brasil" id="pais" name="pais"></label>
+                    </div>
+                </div>
+                <div class="uma-linha">
+                    <div class="meia-linha">
+                        <label>E-mail</label>
+                        <input required type="email" id="email" name="email">
+                    </div>
+                    <div class="meia-linha">
+                        <label>Telefone Celular</label>
+                        <input required type="text" id="celular" name="celular" data-mask="(00) 0 0000-0000">
+                    </div>
+                </div>
 
-                <input id="ibge" name="ibge" type="hidden">
+                <h3>Documentos Pessoais</h3>
 
-                <label>País <input required type="text" value="Brasil" id="pais" name="pais"></label>
+                <p>(Anexar cópia do documento de identidade e "selfie" segurando a identidade em questão ao lado do
+                    rosto. Apenas JPEG ou PDF serão aceitos.)</p>
 
-                <label>E-mail
-                    <input required type="email" id="email" name="email"></label>
-                <label>Telefone Celular
-                    <input required type="tel" id="celular" name="celular" data-mask="(00) 0 0000-0000"></label>
-
-
-                <fieldset>
-                    <legend>Documentos Pessoais</legend>
-                    (Anexar cópia do documento de identidade e "selfie" segurando a identidade em questão ao lado do
-                    rosto. Apenas JPEG ou PDF serão aceitos.)
+                <div class="uma-linha">
                     <label>Documento de identidade</label>
                     <input required type="file" id="cedente_rg" name="cedente_rg" accept=".pdf, .jpg, .jpeg">
+                </div>
+                <div class="uma-linha">
                     <label>Selfie com o documento</label>
                     <input required type="file" id="cedente_selfie" name="cedente_selfie" accept=".pdf, .jpg, .jpeg">
-                </fieldset>
+                </div>
+
+                <div class="btn-bar">
+                    <a href="#info-ufo"><button class="btn">Preencha as informações ufológicas</button></a>
+                </div>
 
             </div>
 
+
+
         </section>
 
-        <section id="info-ufo">
+        <section id="info-ufo" class="aba-conteudo">
             <div class="conteudo">
                 <h2>Dados da Obra Audiovisual</h2>
-                <fieldset>
-                    <legend>Identificação</legend>
-                    <label>Título</label>
-                    <input required type="text" id="titulo" name="titulo">
-                    <label>Tempo de duração (em segundos)</label>
-                    <input required type="number" min="0" max="600" id="duracao" name="duracao">
-                    <label>Data da obra</label>
-                    <input required type="date" id="data_obra" name="data_obra">
-                    <div>Ineditismo:
+
+
+                <h3>Identificação</h3>
+
+                <label>Título</label>
+                <input required type="text" id="titulo" name="titulo">
+
+                <div class="uma-linha">
+                    <div class="um-terco">
+                        <label>Duração (em segundos)</label>
+                        <input required type="number" min="0" max="600" id="duracao" name="duracao">
+                    </div>
+                    <div class="um-terco">
+                        <label>Data da obra</label>
+                        <input required type="date" id="data_obra" name="data_obra">
+                    </div>
+                    <div class="um-terco">
+                        <label>Ineditismo</label><br>
                         <input type="radio" id="publicada" name="ineditismo" value="P">
                         <label for="publicada">Publicada</label>
                         <input type="radio" id="inedita" name="ineditismo" value="I" checked>
                         <label for="inedita">Inédita</label>
                     </div>
-                </fieldset>
+                </div>
 
-                <fieldset>
-                    <legend>Informações Ufológicas</legend>
-                    <label>Dia da gravação</label>
-                    <input required type="date" id="data_gravacao" name="data_gravacao">
-                    <label>Horário aproximado da gravação</label>
-                    <input required type="time" id="hora_gravacao" name="hora_gravacao">
+
+                <h3>Informações Ufológicas</h3>
+
+                <div class="uma-linha">
+                    <div class="um-meio">
+                        <label>Dia da gravação</label>
+                        <input required type="date" id="data_gravacao" name="data_gravacao">
+                    </div>
+                    <div class="um-meio">
+                        <label>Horário aproximado da gravação</label>
+                        <input required type="time" id="hora_gravacao" name="hora_gravacao">
+                    </div>
+                </div>
+                <div class="uma-linha">
                     <label>Local da gravação (rua, avenida, praça, etc.)</label>
                     <input required type="text" id="local_gravacao" name="local_gravacao">
+                </div>
+                <div class="uma-linha">
                     <label>Cidade da gravação</label>
                     <input required type="text" id="cidade_gravacao" name="cidade_gravacao">
+
                     <label>Qual a direção do objeto em relação a você? (norte, sul, leste, oeste)?</label>
                     <input required type="text" id="direcao_objeto" name="direcao_objeto">
+                </div>
+                <div class="uma-linha">
                     <label>Descreva o ocorrido na gravação (o que foi visto, tipo de objeto, velocidade, direção,
                         etc.)</label>
                     <textarea id="descricao_ocorrido" name="descricao_ocorrido"></textarea>
+                </div>
+                <div class="uma-linha">
                     <label>Quem eram as testemunhas presentes no local?</label>
                     <input required type="text" id="testemunhas" name="testemunhas">
-                </fieldset>
+                </div>
 
-                <fieldset>
-                    <legend>Arquivos de foto e vídeo</legend>
-                    (São aceitos apenas MP4 para vídeo e JPEG para fotos.)
-                    <label>Vídeo</label>
+
+                <h3>Arquivos de foto e vídeo</h3>
+                <div class="uma-linha">
+                    <label>Vídeo (apenas MP4)</label>
                     <input required type="file" id="video_nomearq" name="video_nomearq" accept=".mp4">
-                    <label>Fotos</label>
+                </div>
+                <div class="uma-linha">
+                    <label>Fotos (apenas JPEG)</label>
                     <input type="file" multiple name="fotos[]" id="fotos" accept=".jpg, .jpeg">
-                </fieldset>
+                </div>
 
+                <div class="btn-bar">
+                    <a href="#termos"><button class="btn">Aceite os termos</button></a>
+                </div>
             </div>
-
 
         </section>
 
-        <section id="termos">
+        <section id="termos" class="aba-conteudo">
             <div class="conteudo">
 
                 <h2>Termo de cessão de direitos autorais</h2>
@@ -288,19 +352,16 @@
 
         </section>
 
-
-
-
     </form>
 
 
-    <footer>
+    <footer class="site-footer">
         <div class="footer-content">
-            <h2>Produção</h2>
-            <ul class="rodape-marcas">
-                <li id="clip"><img src="img/clip-logo.png"></li>
-                <li id="history"><img src="img/history-logo.png"></li>
-            </ul>
+            <p>PRODUÇÃO</p>
+            <div class="rodape-marcas">
+                <div id="clip"><img src="img/clip-logo.png"></div>
+                <div id="history"><img src="img/history-logo.png"></div>
+            </div>
         </div>
     </footer>
 

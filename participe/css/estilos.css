@@ -12,17 +12,22 @@
 
 :root {
     --preto: #021326;
+    --amarelo: #E79F00;
+    --azul-escuro: #152F47;
     --largura-coluna: 720px;
 }
 
 /* Estilos base */
 
-html {
+* {
     box-sizing: border-box;
-    font-size: 16px;
-    line-height: 1.5;
 }
 
+html {
+    font-size: 16px;
+    line-height: 1.5;
+    scroll-behavior: smooth;
+}
 
 img {
     max-width: 100%;
@@ -30,21 +35,6 @@ img {
 
 a {
     color: white;
-}
-
-.btn {
-    padding: 12px 16px;
-    border: 1px white solid;
-    border-radius: 12px;
-    background-color: transparent;
-    color: white;
-    cursor: pointer;
-    text-transform: uppercase;
-}
-
-.btn:hover {
-    background-color: white;
-    color: var(--preto);
 }
 
 body {
@@ -57,14 +47,60 @@ body {
     font-style: normal;
 }
 
-/* Cabeçalho */
-
-header {
-    height: 120px;
-
+.conteudo {
+    margin: 0 auto 5rem;
+    max-width: var(--largura-coluna);
+    padding: 1rem;
 }
 
-header .conteudo {
+h2 {
+    color: var(--amarelo);
+}
+
+/* Estilos extras */
+
+.amarelo {
+    color: var(--amarelo) !important;
+}
+
+.azul-escuro {
+    color: var(--azul-escuro) !important;
+}
+
+.btn {
+    padding: 12px 16px;
+    border: 1px var(--amarelo) solid;
+    border-radius: 12px;
+    background-color: var(--amarelo);
+    color: var(--azul-escuro);
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background-color: transparent;
+    color: var(--amarelo);
+}
+
+.btn-bar {
+    display: flex;
+    margin: 2rem auto;
+    width: 100%;
+}
+
+/* Cabeçalho */
+
+.site-header {
+    height: 120px;
+    position: fixed;
+    top: 0;
+    z-index: 99;
+    background-color: rgba(0, 0, 0, 0.75);
+    padding-bottom: 12px;
+    width: 100%;
+}
+
+.site-header .conteudo {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -73,42 +109,88 @@ header .conteudo {
     text-transform: uppercase;
 }
 
-header .logo img {
+.site-header .logo img {
     max-width: 80px;
 }
 
-.menu-toggle {
-    display: block;
+.site-header nav {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    height: 100%;
+    width: 70%;
 }
 
-.menu-principal {
+.site-header nav ul {
     display: none;
+    justify-content: space-evenly;
+    align-items: center;
+
     list-style: none;
     margin: 0;
     padding: 0;
+
+    height: 100%;
+    width: 100%;
 }
 
-@media screen and (min-width: 600px) {
-    .menu-principal {
+.site-header ul.abre {
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 120px;
+    left: 0;
+    right: 0;
+    height: auto;
+    z-index: 99;
+}
+
+.site-header ul.abre li {
+    padding: 20px;
+}
+
+.site-header ul li {
+    text-transform: uppercase;
+}
+
+.site-header ul li a {
+    color: var(--azul);
+    text-decoration: none;
+}
+
+.menu-toggle {
+    float: right;
+    border: 0;
+    font-size: 1.5em;
+    background-color: transparent;
+    color: var(--cinza);
+    padding: 8px;
+}
+
+@media screen and (min-width: 800px) {
+    .menu-toggle {
+        display: none;
+    }
+
+    .site-header nav ul {
         display: flex;
+        justify-content: space-evenly;
+        align-items: center;
     }
 }
 
-.menu-principal li {
-    margin: 0 0.5rem;
-}
 
-.conteudo {
-    margin: 0 auto 5rem;
-    max-width: var(--largura-coluna);
-    padding: 1rem;
-}
 
 /* Abas */
 
+#inicio,
 #instrucoes,
 #inscricao,
-#info-ufo {}
+#info-ufo,
+#termos {
+    padding-top: 120px;
+}
 
 
 
@@ -118,7 +200,10 @@ form {
     margin: 0 auto;
 }
 
-input[type="text"] {
+input[type="file"],
+input[type="text"],
+input[type="email"],
+textarea {
     width: 100%;
 
 }
@@ -131,6 +216,7 @@ input[type="radio"] {}
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    margin-top: 0.5rem;
 }
 
 .uma-linha>* {
@@ -157,6 +243,16 @@ input[type="radio"] {}
     }
 }
 
+.um-quarto {
+    width: 50%;
+}
+
+@media screen and (min-width: 600px) {
+    .um-quarto {
+        width: 24%;
+    }
+}
+
 /* Mensagens de erro */
 
 .msgerro {
@@ -169,22 +265,32 @@ input[type="radio"] {}
 
 /* Rodapé */
 
+.site-footer {
+    padding: 6rem 0 2rem;
+}
+
 .footer-content {
-    margin: 0 auto 3rem;
+    font-size: 0.75rem;
     max-width: var(--largura-coluna);
-    padding: 2rem;
-    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .rodape-marcas {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-evenly;
     list-style: none;
+    margin-top: 1rem;
+    width: 200px;
 }
 
-.rodape-marcas li {
-    max-width: 88px;
+.rodape-marcas img {
+    max-height: 64px;
+    width: auto;
 }
 
 
@@ -238,4 +344,10 @@ input[type="radio"] {}
 
 .regulamento-estilo-normal code {
     color: var(--azul-claro);
+}
+
+
+
+#gravacaoObraRetorno {
+    margin: 5rem auto 0;
 }
