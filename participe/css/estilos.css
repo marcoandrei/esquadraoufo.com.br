@@ -208,10 +208,6 @@ textarea {
 
 }
 
-input[type="text"],
-input[type="date"],
-input[type="radio"] {}
-
 .uma-linha {
     display: flex;
     justify-content: space-between;
