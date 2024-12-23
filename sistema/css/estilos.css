@@ -8,6 +8,10 @@ body {
   margin-bottom: 60px;
 }
 
+.lista-obras a {
+  display: block;
+}
+
 
 
 /* Container
@@ -22,14 +26,11 @@ body {
 
 }
 
-footer .container {
-  padding-top: 0;
-
-}
-
-.msgErro p {
+p.msgErro  {
+  padding: 0.25rem;
   color: red;
 }
+
 
 /* Rodapé fixo
 -------------------------------------------------- */
@@ -41,13 +42,11 @@ footer .container {
   /* Set the fixed height of the footer here */
   height: 60px;
   background-color: #f5f5f5;
-
 }
 
 .footer .container {
 
   display: flex;
-  justify-content: space-between;
   align-items: center;
 
   font-size: 0.7rem;
@@ -55,4 +54,5 @@ footer .container {
   height: 100%;
   width: 100%;
 
+  padding: 0 3rem;
 }

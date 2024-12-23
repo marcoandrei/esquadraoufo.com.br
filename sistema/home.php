@@ -25,7 +25,7 @@ require_once('header.php');
             <?php
 
             // Variáveis
-
+            
             $em_aberto = 0;
             $atendidas = 0;
             $fechadas = 0;
@@ -37,18 +37,24 @@ require_once('header.php');
             <h2>Envio de colaborações</h2>
             <br /><br />
 
-            <table class="table table-striped">
+            <table class="table table-striped lista-obras">
                 <tr>
                     <th></th>
                     <th>Entrada</th>
-                    <th>Nome</th>
+                    <th>Obra</th>
+                    <th>Cedente</th>
                     <th>Cidade</th>
                     <th>Atendente</th>
                 </tr>
 
                 <?php
 
-                $result = $bd->query("SELECT id, DATE_FORMAT(data_entrada, '%d/%m/%Y %H:%i') as data_entrada_2, nome, cidade, status, responsavel FROM cedentes");
+                $result = $bd->query("
+                
+                    SELECT obras.id AS obra_id, DATE_FORMAT(obras.data_entrada, '%d/%m/%Y %H:%i') AS obra_entrada, obras.titulo AS obra_titulo, cedentes.nome AS cedente_nome, cedentes.cidade AS cedente_cidade, obras.status AS obra_status, obras.responsavel AS obra_resp
+                    FROM obras INNER JOIN cedentes ON obras.cedente_id = cedentes.id
+                
+                ");
 
                 if ($result) {
 
@@ -59,7 +65,7 @@ require_once('header.php');
                         $cor = "red"; // define a cor
                         $status = "não atendido";
 
-                        switch ($row['status']) { // verifica o status
+                        switch ($row['obra_status']) { // verifica o status
                             case "0":
                                 $status = "não atendido";
                                 $em_aberto++;
@@ -78,14 +84,14 @@ require_once('header.php');
                                 break;
                         }
 
-                ?>
+                        ?>
 
 
                         <tr>
                             <!-- ícone do item -->
                             <td>
                                 <?php if ($eh_admin) { ?>
-                                    <a href="fecha-exame.php?id=<?= $row['id'] ?>" title="<?= $status ?>">
+                                    <a href="encerra-obra.php?id=<?= $row['obra_id'] ?>" title="<?= $status ?>">
                                     <?php } ?>
                                     <i class="<?= $icone ?>" style="color: <?= $cor ?>;" aria-hidden="true"></i>
                                     <?php if ($eh_admin) { ?>
@@ -93,27 +99,31 @@ require_once('header.php');
                                 <?php } ?>
                             </td>
 
-                            <!-- data da solicitação -->
+                            <!-- data de entrada -->
                             <td>
-
-                                <?= $row['data_entrada_2'] ?>
-                            </td>
-
-                            <!-- dados do exame -->
-
-                            <td>
-                                <a href="edita-exame.php?id=<?= $row['id'] ?>" class="marcacao marcacao-nome">
-                                    <?= $row['nome'] ?>
+                                <a href="ver-obra.php?id=<?= $row['obra_id'] ?>">
+                                    <?= $row['obra_entrada'] ?>
                                 </a>
-
                             </td>
-
+                            <!-- nome da obra -->
                             <td>
-                                <?= $row['cidade'] ?>
+                                <a href="ver-obra.php?id=<?= $row['obra_id'] ?>">
+                                    <?= $row['obra_titulo'] ?>
+                                </a>
                             </td>
-
+                            <!-- nome do cedente -->
                             <td>
-                                <?= $row['responsavel'] ?>
+                                <a href="ver-obra.php?id=<?= $row['obra_id'] ?>">
+                                    <?= $row['cedente_nome'] ?>
+                                </a>
+                            </td>
+                            <!-- cidade do cedente -->
+                            <td>
+                                <?= $row['cedente_cidade'] ?>
+                            </td>
+                            <!-- responsável -->
+                            <td>
+                                <?= $row['obra_resp'] ?>
                             </td>
 
                             <?php
@@ -124,7 +134,7 @@ require_once('header.php');
                         </tr>
 
 
-                <?php
+                        <?php
                     } //endwhile
                 } // endif
                 ?>

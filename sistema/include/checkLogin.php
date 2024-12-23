@@ -15,4 +15,4 @@ require "incAutenticacao.php";
 verificaLogin();
 
 $eh_admin = $_SESSION["login_admin"];
-$tipo_usuario = $_SESSION["login_tipo"];
+// $tipo_usuario = $_SESSION["login_tipo"];

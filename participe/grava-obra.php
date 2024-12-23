@@ -16,7 +16,7 @@ if (isset($_POST["gravaObra"])) {
 
     // Grava cedente no BD
 
-    $cria_cedente = $bd->query("
+    $cria_cedente = "
         
             insert into cedentes ( 
             
@@ -53,13 +53,14 @@ if (isset($_POST["gravaObra"])) {
                 '$celular'
             )
         
-        ");
+        ";
 
-    if ($bd->error) {
-        echo $bd->error;
+    if (!$bd->query($cria_cedente)) { // assuming $bd is the connection
+        $error = $bd->errno . ' ' . $bd->error;
+        echo $error; // 1054 Unknown column 'foo' in 'field list'
         echo '<p class="erro">ERRO! Houve um problema durante a gravação na base de dados.<br/><br/>Por favor, entre em contato com o administrador do sistema.<br/><br/></p>';
         exit;
-    }
+    } 
 
     $cedente_id = mysqli_insert_id($bd);
 
@@ -80,7 +81,7 @@ if (isset($_POST["gravaObra"])) {
     if ($bd->error) {
         echo $bd->error;
         echo '<p class="erro">ERRO! Houve um problema durante a gravação na base de dados.<br/><br/>Por favor, entre em contato com o administrador do sistema.<br/><br/></p>';
-        exit;
+        die;
     }
 
     $selfNomeArquivo = "";
@@ -97,7 +98,7 @@ if (isset($_POST["gravaObra"])) {
     if ($bd->error) {
         echo $bd->error;
         echo '<p class="erro">ERRO! Houve um problema durante a gravação na base de dados.<br/><br/>Por favor, entre em contato com o administrador do sistema.<br/><br/></p>';
-        exit;
+        die;
     }
 
 
@@ -143,7 +144,7 @@ if (isset($_POST["gravaObra"])) {
     if ($bd->error) {
         echo $bd->error;
         echo '<p class="erro">ERRO! Houve um problema durante a gravação na base de dados.<br/><br/>Por favor, entre em contato com o administrador do sistema.<br/><br/></p>';
-        exit;
+        die;
     }
 
     $obra_id = mysqli_insert_id($bd);
@@ -156,7 +157,7 @@ if (isset($_POST["gravaObra"])) {
     if (is_uploaded_file($_FILES['video_nomearq']['tmp_name'])) {
 
         $vidNomeArquivo = sanitizeString($_FILES['video_nomearq']['name']);
-        $pathNomeArquivo = "../sistema/repositorio/" . $cedente_id . "-" . $obra_id . "-video__" . $vidNomeArquivo;
+        $pathNomeArquivo = "../sistema/repositorio/video_" .  $obra_id . "__" . $vidNomeArquivo;
         move_uploaded_file($_FILES['video_nomearq']['tmp_name'], $pathNomeArquivo);
     }
 
@@ -172,7 +173,7 @@ if (isset($_POST["gravaObra"])) {
     for ($i = 0; $i < $c; ++$i) {
 
         $fotoNomeArquivo = sanitizeString($fotos['name'][$i]);
-        $pathNomeArquivo = $diretorio . $cedente_id . "-" . $obra_id . "-foto" . $i . "__" . $fotoNomeArquivo;
+        $pathNomeArquivo = $diretorio . "foto" . "_" . $obra_id . "-" . $i . "__" . $fotoNomeArquivo;
 
         $upload = move_uploaded_file(
             $fotos['tmp_name'][$i],
@@ -198,6 +199,12 @@ if (isset($_POST["gravaObra"])) {
             ");
         }
     }
+
+    echo "<p>Muito obrigado por sua colaboração! Iremos analisar seu conteúdo e entraremos em contato caso ele possa ser aproveitado.</p>";
+    echo '<p><a href=".">Clique aqui para voltar para o início</a></p>';
+}
+else {
+    echo "<p>Houve um erro ao enviar sua colaboração. Por favor, tente novamente.</p>";
+    echo '<p><a href=".">Clique aqui para voltar para o início</a></p>';
 }
 
-echo '<a href=".">Voltar</a>';

@@ -1,11 +1,6 @@
 <?php
 
-    error_reporting(E_ALL);
-    ini_set('display_errors', 1);
-
-    require "include/connect.php";
-    require "include/incAutenticacao.php";
-    verificaLogin();
+  require_once('include/checkLogin.php');
 
 
     $arquivo = $_GET["arquivo"];
@@ -14,14 +9,17 @@
     
         switch(strtolower(substr(strrchr(basename($arquivo),"."),1))){ // verifica a extensão do arquivo para pegar o tipo
              case "pdf": $tipo="application/pdf"; break;
-              case "zip": $tipo="application/zip"; break;
+               case "zip": $tipo="application/zip"; break;
              case "doc": $tipo="application/msword"; break;
              case "xls": $tipo="application/vnd.ms-excel"; break;
              case "ppt": $tipo="application/vnd.ms-powerpoint"; break;
              case "gif": $tipo="image/gif"; break;
              case "png": $tipo="image/png"; break;
              case "jpg": $tipo="image/jpg"; break;
+             case "jpeg": $tipo="image/jpg"; break;
              case "mp3": $tipo="audio/mpeg"; break;
+             case "mp4": $tipo="video/mp4"; break;
+
              case "exe": // deixar vazio por segurança
             case "php": // deixar vazio por segurança
              case "htm": // deixar vazio por segurança

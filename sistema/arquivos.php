@@ -1,13 +1,15 @@
 <?php
 
-// Verifica se usuários está autenticado.
+/**
+ * ESQUADRÃO UFO
+ * 
+ * » Gestor de arquivos
+ * 
+ */
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ // Verifica se usuários está autenticado.
 
-require "include/connect.php";
-require "include/incAutenticacao.php";
-verificaLogin();
+require_once('include/checkLogin.php');
 
 // Se houver um arquivo enviado, grava o arquivo na pasta correta.
 
@@ -19,63 +21,9 @@ if (isset($_POST["upload"])) {
     }
 }
 
+require_once('header.php');
+
 ?>
-
-
-<!DOCTYPE html>
-<html lang="pt">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Esquadrão UFO</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet" />
-    <link href="css/estilos.css" rel="stylesheet" />
-
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-</head>
-
-<body>
-
-    <?php
-    $eh_admin = $_SESSION["login_admin"];
-    ?>
-
-    <!-- Monta barra de navegação -->
-
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">
-                    <img alt="Arsnova" src="img/arsnova-brand.png">
-                </a>
-            </div>
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Arquivos <span class="sr-only">(current)</span></a></li>
-                <?php
-                if ($eh_admin) { // se o usuário é admin, permite apagar o arquivo
-                ?>
-                    <li><a href="usuarios.php">Usuários</a></li>
-                <?php
-                } // endif é admin
-                ?>
-            </ul>
-
-            <button class="btn btn-default navbar-btn" onclick="document.location='logout.php'">
-                Sair
-            </button>
-
-            <p class="navbar-text">Bem-vindo, <?= $_SESSION["login_nome"] ?>!</p>
-
-        </div>
-    </nav>
 
     <!-- Monta o miolo -->
 
@@ -96,10 +44,17 @@ if (isset($_POST["upload"])) {
 
                 ?>
 
-                <h1>Repositório de documentos</h1>
+                <h1>Esquadrão UFO</h1>
 
+                <h2>Repositório de documentos</h2>
+
+                <br /><br />
 
                 <table class="table table-striped">
+
+                <th></th>
+                    <th>Nome do arquivo</th>
+                    <th>Apagar</th>
 
                     <?php
 
@@ -119,17 +74,14 @@ if (isset($_POST["upload"])) {
                                 case "zip":
                                     $icone = "fa fa-file-archive-o";
                                     break;
-                                case "doc":
-                                    $icone = "fa fa-file-word-o";
+                                case "mp4":
+                                    $icone = "fa fa-file-video-o";
                                     break;
-                                case "docx":
-                                    $icone = "fa fa-file-word-o";
+                                case "jpg":
+                                    $icone = "fa fa-file-image-o";
                                     break;
-                                case "xls":
-                                    $icone = "fa fa-file-excel-o";
-                                    break;
-                                case "xlsx":
-                                    $icone = "fa fa-file-excel-o";
+                                case "jpeg":
+                                    $icone = "fa fa-file-image-o";
                                     break;
                             }
 
@@ -139,7 +91,7 @@ if (isset($_POST["upload"])) {
                                 <!-- ícone do arquivo -->
                                 <td><i class="<?= $icone ?>" aria-hidden="true"></i>&nbsp;</td>
                                 <!-- nome do arquivo -->
-                                <td><a href="baixarArquivo.php?arquivo=<?= $path . $arquivo ?>" class="arquivo"><?= $arquivo ?></a>&nbsp;</td>
+                                <td><a href="<?= $path . $arquivo ?>" target="_blank" class="arquivo"><?= $arquivo ?></a>&nbsp;</td>
 
                                 <?php
                                 if ($eh_admin) { // se o usuário é admin, permite apagar o arquivo
@@ -178,7 +130,7 @@ if (isset($_POST["upload"])) {
 
                 ?>
                     <br /><br />
-                    <form method="post" enctype="multipart/form-data" action="home.php">
+                    <form method="post" enctype="multipart/form-data" action="arquivos.php">
                         <div class="form-group">
                             <input type="hidden" id="upload" name="upload">
                             <label for="arquivo">Novo arquivo</label>
@@ -195,13 +147,6 @@ if (isset($_POST["upload"])) {
                 }
 
 
-
-
-
-
-
-
-
                 ?>
 
 
@@ -212,14 +157,6 @@ if (isset($_POST["upload"])) {
         </div>
     </div>
 
-    <footer class="footer">
-        <div class="container">
-            <p class="text-muted">
-                <a href="http://arsnova.digital/?utm_source=esquadrao-ufo&amp;utm_medium=logo-rodape&amp;utm_campaign=feito-por-arsnova" target="_blank"><img src="http://arsnova.digital/arsnova-logo.png" style="vertical-align: text-bottom" height="12" width="66"></a>
-            </p>
-        </div>
-    </footer>
+   <?php
 
-</body>
-
-</html>
+require_once('footer.php');
