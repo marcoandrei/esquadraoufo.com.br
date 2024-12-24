@@ -38,7 +38,7 @@ a {
 }
 
 body {
-    background-color: black;
+    background-color: var(--azul-escuro);
     background-image: url('../img/fundo.jpg');
     background-position: center;
     color: white;
@@ -95,8 +95,7 @@ h2 {
     position: fixed;
     top: 0;
     z-index: 99;
-    background-color: rgba(0, 0, 0, 0.75);
-    padding-bottom: 12px;
+    background-color: rgba(0, 0, 0, 0.35);
     width: 100%;
 }
 
@@ -110,7 +109,7 @@ h2 {
 }
 
 .site-header .logo img {
-    max-width: 80px;
+    max-width: 72px;
 }
 
 .site-header nav {

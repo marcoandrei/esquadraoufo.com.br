@@ -29,7 +29,7 @@
 
         <div class="conteudo">
 
-            <div class="logo"><img src="img/esquadrao-ufo-logo.png"></div>
+            <div class="logo"><a href="."><img src="img/esquadrao-ufo-logo.png"></a></div>
 
             <nav role="navigation" id="site-navigation" class="main-navigation">
                 <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false" onclick="abreMenu()">
@@ -52,12 +52,17 @@
 
     <section id="inicio" class="aba-conteudo">
         <div class="conteudo">
-            <img src="img/amorim-piramide.jpg">
-            <p>O <span class="amarelo"><strong>Canal History</strong></span> e a <strong>Clip Produtora</strong> estão selecionando vídeos e fotos para uma nova série
+            <video class="inicial-video" width="100%" preload="auto" controls playsinline="" controlsList="nodownload"
+                title="Participe do Esquadrão UFO">
+                <source src="video-pagina-inicial.mp4" type="video/mp4">
+            </video>
+            <p>O <span class="amarelo"><strong>Canal History</strong></span> e a <strong>Clip Produtora</strong> estão
+                selecionando vídeos e fotos para uma nova série
                 de Ufologia chamada <strong>“Esquadrão UFO”</strong>. Nesta série, especialistas irão analisar vídeos e
                 fotos de estranhos objetos vistos nos céus e descobrir se são fenômenos naturais, ciência humana ou
                 realmente objetos voadores não identificados. Se você já viu, gravou ou fotografou algum OVNI / UFO e
-                quer fazer parte de uma nova série no <span class="amarelo"><strong>Canal History</strong></span>, envie seu vídeo/foto que ele
+                quer fazer parte de uma nova série no <span class="amarelo"><strong>Canal History</strong></span>, envie
+                seu vídeo/foto que ele
                 poderá ser escolhido.</p>
             <a href="#instrucoes"><button class="btn">Saiba como enviar seu material</button></a>
         </div>
@@ -334,7 +339,8 @@
 
                 <h2>Termo de cessão de direitos autorais</h2>
 
-                <p>Para enviar sua colaboração, você precisa estar de acordo com os termos de cessão de direitos autoriais ao canal History. Leia com atenção o termo e clique no aceite ao final.</p>
+                <p>Para enviar sua colaboração, você precisa estar de acordo com os termos de cessão de direitos
+                    autoriais ao canal History. Leia com atenção o termo e clique no aceite ao final.</p>
 
                 <?php include 'include/gera-aceite.php'; ?>
 

@@ -7,15 +7,26 @@
 
 
 function abreMenu() {
+    const header = document.querySelector('.site-header');
     const nav = document.querySelector('.nav-menu');
+    if (nav.classList.contains('abre')) {   
+        header.style.backgroundColor = "rgba(0, 0, 0, 0.35)";
+    }
+    else {
+      header.style.backgroundColor = "rgba(0, 0, 0, 0.75)";
+    }
+    
     nav.classList.toggle('abre');
 }
 
 function fechaMenu() {
     const nav = document.querySelector('.nav-menu');
+    const header = document.querySelector('.site-header');
     if (nav.classList.contains('abre')) {
         nav.classList.toggle('abre');
     }
+    header.style.backgroundColor = "rgba(0, 0, 0, 0.35)";
+    
 
 }
 
