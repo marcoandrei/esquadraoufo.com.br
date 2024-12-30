@@ -68,16 +68,6 @@
         </div>
     </section>
 
-    <footer class="site-footer">
-        <div class="footer-content">
-            <p>PRODUÇÃO</p>
-            <div class="rodape-marcas">
-                <div id="clip"><img src="img/clip-logo.png"></div>
-                <div id="history"><img src="img/history-logo.png"></div>
-            </div>
-        </div>
-    </footer>
-
     <section id="instrucoes" class="aba-conteudo">
         <div class="conteudo">
             <h2>Passo a Passo da Inscrição</h2>
@@ -360,6 +350,34 @@
 
     </form>
 
+    <section id="progressoEnvio">
+
+        <div class="conteudo">
+
+            <div class="progress-frame">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+
+    </section>
+
+    <section id="enviaObraRetorno">
+
+        <div class="conteudo">
+
+            <!--<img src="img/esquadrao-ufo-logo.png" height="150">-->
+
+            <div id="mensagemResposta">
+
+            </div>
+
+            <div class="btn-bar">
+                <a href="index.php"><button class="btn">Voltar ao início</button></a>
+            </div>
+        </div>
+
+    </section>
+
 
     <footer class="site-footer">
         <div class="footer-content">
@@ -372,12 +390,77 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-
+    <script src="js/jquery.min.js"></script>
     <script id="via-cep-js" type="text/javascript" src="js/vc-ws.js"></script>
     <script src="js/jquery.mask.min.js"></script>
     <script src="js/funcoes.js"></script>
+
+    <script>
+        $().ready(function() {
+
+            $('#enviaObra').submit(function(event) {
+
+                event.preventDefault();
+
+                let formData = new FormData($('#enviaObra')[0]);
+                $('#inicio').hide();
+                $('#instrucoes').hide();
+                $('#enviaObra').hide();
+                $('#enviaObraRetorno').hide();
+                $('#progressoEnvio').show();
+                $('#mensagem').empty();
+
+                $.ajax({
+                    url: "grava-obra.php",
+                    type: 'POST',
+                    data: formData,
+                    xhr: function() {
+                        myXhr = $.ajaxSettings.xhr();
+                        if (myXhr.upload) {
+                            myXhr.upload.addEventListener('progress', function(evt) {
+                                if (evt.lengthComputable) {
+                                    let porcento = (evt.loaded / evt.total) * 100;
+                                    porcento = parseInt(porcento);
+                                    $('#progressoEnvio .progress-bar').css('width', porcento + '%');
+                                }
+                            });
+                        } else {
+                            console.log("Progresso upload não suportado.");
+                        }
+                        return myXhr;
+                    },
+                    success: function(data) {
+
+                        // $("#enviaObra")[0].reset();
+                        $('#progressoEnvio').hide();
+                        $('#enviaObraRetorno').show();
+
+                        if (data.sucesso) {
+                            $("#mensagemResposta").text(data.resposta);
+                            // document.location('sucesso.html');
+                        } else {
+                            alert(data.resposta);
+                            $("#mensagemResposta").text(data.resposta);
+                        }
+
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(errorThrown);
+                        $("#enviaObra")[0].show();
+                        $('#progressoEnvio').hide();
+                        $('#enviaObraRetorno').show();
+                        $("#mensagemResposta").text('Houve um erro ao enviar os dados ao sistema. Tente novamente.');
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: "json"
+                });
+
+            });
+
+        });
+    </script>
 
 </body>
 

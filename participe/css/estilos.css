@@ -341,8 +341,35 @@ textarea {
     color: var(--azul-claro);
 }
 
+/* ENVIO E RETORNO
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
 
+#progressoEnvio {
+    display: none;
+}
 
-#gravacaoObraRetorno {
+#progressoEnvio .conteudo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem 0;
+    width: 100%;
+}
+
+.progress-frame {
+    border: 1px solid white;
+    height: 24px;
+    max-width: 100%;
+    width: 320px;
+}
+
+.progress-bar {
+    background-color: lightblue;
+    height: 100%;
+    width: 0%;
+}
+
+#enviaObraRetorno {
+    display: none;
     margin: 5rem auto 0;
 }

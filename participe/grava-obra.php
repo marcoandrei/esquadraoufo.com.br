@@ -8,9 +8,10 @@ require "../sistema/include/funcoes.php";
 
 $diretorio = "../sistema/repositorio/";
 
-$sucesso = 0;
-
 $mensagem = "<h1>ERRO!</h1><p>Houve um problema ao enviar sua colaboração. Por favor, tente novamente.</p>";
+
+
+
 
 if (isset($_POST["gravaObra"])) {
 
@@ -61,13 +62,10 @@ if (isset($_POST["gravaObra"])) {
 
     if (!$bd->query($cria_cedente)) { // assuming $bd is the connection
         $error = $bd->errno . ' ' . $bd->error;
-        echo $error; // 1054 Unknown column 'foo' in 'field list'
-        echo '<p class="erro">ERRO! Houve um problema durante a gravação na base de dados.<br/><br/>Por favor, entre em contato com o administrador do sistema.<br/><br/></p>';
-        exit;
+        exit(json_encode(array('sucesso' => false, 'resposta' => $error . '<h1>ERRO!</h1><p class="erro">Houve um problema durante a gravação na base de dados.<br/><br/>Por favor, entre em contato com o administrador do sistema.<br/><br/></p>')));
     }
 
     $cedente_id = mysqli_insert_id($bd);
-
 
     // Envia documentos do cedente para o repositório
 
@@ -83,9 +81,8 @@ if (isset($_POST["gravaObra"])) {
     $adicRg = $bd->query("UPDATE cedentes SET identidade_nomearq = '$rgNomeArquivo' WHERE id = $cedente_id");
 
     if ($bd->error) {
-        echo $bd->error;
-        echo '<p class="erro">ERRO! Houve um problema durante a gravação na base de dados.<br/><br/>Por favor, entre em contato com o administrador do sistema.<br/><br/></p>';
-        die;
+        $error = $bd->errno . ' ' . $bd->error;
+        exit(json_encode(array('sucesso' => false, 'resposta' => $error . '<h1>ERRO!</h1><p class="erro">Houve um problema durante a gravação na base de dados.<br/><br/>Por favor, entre em contato com o administrador do sistema.<br/><br/></p>')));
     }
 
     $selfNomeArquivo = "";
@@ -100,10 +97,11 @@ if (isset($_POST["gravaObra"])) {
     $adicSelf = $bd->query("UPDATE cedentes SET selfie_nomearq = '$selfNomeArquivo' WHERE id = $cedente_id");
 
     if ($bd->error) {
-        echo $bd->error;
-        echo '<p class="erro">ERRO! Houve um problema durante a gravação na base de dados.<br/><br/>Por favor, entre em contato com o administrador do sistema.<br/><br/></p>';
-        die;
+        $error = $bd->errno . ' ' . $bd->error;
+        exit(json_encode(array('sucesso' => false, 'resposta' => $error . '<h1>ERRO!</h1><p class="erro">Houve um problema durante a gravação na base de dados.<br/><br/>Por favor, entre em contato com o administrador do sistema.<br/><br/></p>')));
     }
+
+
 
 
     /* OBRA */
@@ -146,13 +144,13 @@ if (isset($_POST["gravaObra"])) {
         ");
 
     if ($bd->error) {
-        echo $bd->error;
-        echo '<p class="erro">ERRO! Houve um problema durante a gravação na base de dados.<br/><br/>Por favor, entre em contato com o administrador do sistema.<br/><br/></p>';
-        die;
+        $error = $bd->errno . ' ' . $bd->error;
+        exit(json_encode(array('sucesso' => false, 'resposta' => $error . '<h1>ERRO!</h1><p class="erro">Houve um problema durante a gravação na base de dados.<br/><br/>Por favor, entre em contato com o administrador do sistema.<br/><br/></p>')));
     }
 
     $obra_id = mysqli_insert_id($bd);
 
+    exit(json_encode(array('sucesso' => true, 'resposta' => 'cedente e obra')));
 
     // Envia vídeo da obra para o repositório
 
@@ -204,69 +202,7 @@ if (isset($_POST["gravaObra"])) {
         }
     }
 
-
-    $mensagem = "<h1>Muito obrigado por sua colaboração!</h1>
-    <p>Vamos analisar seu conteúdo e entraremos em contato caso ele possa ser aproveitado.</p>";
-    $sucesso = 1;
+    exit(json_encode(array('sucesso' => true, 'resposta' => '<h1>Muito obrigado por sua colaboração!</h1><p>Vamos analisar seu conteúdo e entraremos em contato caso ele possa ser aproveitado.</p>')));
 } else {
     header("Location: index.php");
 }
-
-?>
-
-<!DOCTYPE html>
-<html lang="pt">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Esquadrão UFO</title>
-
-    <meta name="description"
-        content="A equipe da Clip Produtora de Cinema e Vídeo e o History Channel agradecem o seu interesse em participar de mais esta série.">
-    <meta name="author" content="Marco Andrei Kichalowsky, Arsnova Digital">
-
-    <link rel="icon" type="image/png" href="" />
-
-    <!-- Estilos -->
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/estilos.css">
-
-    <!-- Ícones -->
-    <link rel="stylesheet" href="fonts/font-awesome-v5/css/fontawesome-all.css">
-
-</head>
-
-<body>
-
-    <section id="gravacaoObraRetorno">
-
-        <div class="conteudo">
-
-            <img src="img/esquadrao-ufo-logo.png" height="150">
-
-            <?= $mensagem ?>
-
-            <div class="btn-bar">
-                <a href="index.php"><button class="btn">Voltar ao início</button></a>
-            </div>
-        </div>
-
-
-    </section>
-
-    <footer class="site-footer">
-        <div class="footer-content">
-            <p>PRODUÇÃO</p>
-            <div class="rodape-marcas">
-                <div id="clip"><img src="img/clip-logo.png"></div>
-                <div id="history"><img src="img/history-logo.png"></div>
-            </div>
-        </div>
-    </footer>
-
-    <script src="js/funcoes.js"></script>
-
-</body>
-
-</html>
