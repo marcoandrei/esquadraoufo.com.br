@@ -8,13 +8,16 @@ if ($_SERVER["SERVER_NAME"] == "localhost") {
 	$banco = 'esq_ufo';
 	$usuario = 'root';
 	$senha = 'root';
+
 } else {
 
-	$servidor = 'mysql.hermesweb.com.br';
-	$banco = 'hermesweb01';
-	$usuario = 'hermesweb01';
-	$senha = 'cuzE5Adacrus';
+	$servidor = 'global-db';
+	$banco = 'esquadraoufo_com_br';
+	$usuario = 'esquadraoufo.com.br-NfwQ8W';
+	$senha = 'B7i6Dw1xLSKuue7ivt';
+
 }
 $bd = new mysqli($servidor, $usuario, $senha, $banco);
-if (mysqli_connect_errno()) trigger_error(mysqli_connect_error());
+if (mysqli_connect_errno())
+	trigger_error(mysqli_connect_error());
 $bd->set_charset("utf8");
