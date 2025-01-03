@@ -1,7 +1,8 @@
 <?php
 
 /**
- * FAUVEL
+ * ESQUADRÃO UFO
+ * 
  * » Verifica se o usuário está autenticado 
  * e carrega informações de sessão.
  * 
